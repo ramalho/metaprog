@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Memorar</title>
+    <script type="text/javascript" src="assert.js"></script>
+    <link href="assert.css" rel="stylesheet" type="text/css">
+    <meta charset="utf-8" />
+  </head>
+  <body>
+    <script type="text/javascript">
+
+      Function.prototype.memorada = function(key){
+        this._resultados = this._resultados || {};                            //#1
+        return this._resultados[key] !== undefined ?                      //#2
+          this._resultados[key] :
+          this._resultados[key] = this.apply(this, arguments);
+      };
+
+      function ehPrimo(num) {                                         //#3
+        var primo = num !== 1;
+        for (var i = 2; i < num; i++) {
+          if (num % i === 0) {
+            return false;
+          }
+        }
+        return primo;
+      }
+
+
+      assert(! ehPrimo.memorada(1), "Funciona; 1 não é primo."); //#4
+      assert(ehPrimo.memorada(2), "Funciona; 2 é primo."); //#4
+      assert(ehPrimo.memorada(3), "Funciona; 3 é primo."); //#4
+      assert(! ehPrimo.memorada(4), "Funciona; 4 não é primo."); //#4
+      assert(ehPrimo.memorada(5), "Funciona; 5 é primo."); //#4
+      assert(ehPrimo._resultados[5], "A resposta foi cacheada.");      //#4
+      var t0 = (new Date).getTime();
+      var diff = (new Date).getTime() - start;
+
+    </script>
+  </body>
+</html>
+
